@@ -10,10 +10,18 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 chat_history = []
 
+# Quick suggestions
+suggestions = [
+    "What is my timetable?",
+    "How to prepare for exams?",
+    "Latest notices",
+    "Top assignments this week"
+]
+
 @app.route("/", methods=["GET","POST"])
 def chat():
     global chat_history
-    if request.method=="POST":
+    if request.method == "POST":
         q = request.form.get("question","").strip()
         if q:
             # Add user question
@@ -34,10 +42,8 @@ def chat():
             
             # Replace typing with actual answer
             chat_history[-1] = ("Bot", answer, datetime.now().strftime("%H:%M"))
-            
-    # Quick suggestions
 
-    return render_template("index.html", chat_history=chat_history)
+    return render_template("index.html", chat_history=chat_history, suggestions=suggestions)
 
-if __name__=="__main__":
+if __name__ == "__main__":
     app.run(debug=True)
