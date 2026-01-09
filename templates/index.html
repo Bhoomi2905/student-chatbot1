@@ -9,7 +9,8 @@
 <body>
 <div class="chat-container">
     <div class="chat-header">Student Assistant 🤖</div>
-    <div class="chat-messages">
+
+    <div class="chat-messages" id="chat-messages">
         {% for sender,msg,time in chat_history %}
         <div class="message {{ 'user' if sender=='You' else 'bot' }}">
             {% if sender=='Bot' %}
@@ -37,5 +38,11 @@
         </form>
     </div>
 </div>
+
+<script>
+    // Auto scroll to bottom
+    let chatBox = document.getElementById('chat-messages');
+    chatBox.scrollTop = chatBox.scrollHeight;
+</script>
 </body>
 </html>
